@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fashion Shoes</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:#fff;
+color:#333;
+overflow-x: hidden; /* Evita scrolls raros con el panel lateral */
+}
+
+/* HEADER */
+header{
+background:white;
+position:sticky;
+top:0;
+z-index:1000;
+padding:20px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+.logo{
+font-size:32px;
+font-weight:bold;
+}
+
+.menu a{
+text-decoration:none;
+color:#000;
+margin:0 15px;
+font-weight:bold;
+transition:.3s;
+}
+
+.menu a:hover{
+color:#e63946;
+}
+
+/* BANNER */
+.banner{
+height:85vh;
+background:url('https://cdn.runrepeat.com/storage/gallery/buying_guide_primary/214/214-best-chunky-sneakers-001-16187842-main.jpg') center/cover;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.banner-content{
+background:rgba(255,255,255,.9);
+padding:40px;
+border-radius:15px;
+text-align:center;
+animation:aparecer 1.5s ease;
+}
+
+.banner-content h1{
+font-size:55px;
+margin-bottom:15px;
+}
+
+.banner-content p{
+font-size:20px;
+}
+
+@keyframes aparecer{
+from{ opacity:0; transform:translateY(30px); }
+to{ opacity:1; transform:translateY(0); }
+}
+
+/* BENEFICIOS */
+.beneficios {
+padding: 50px 8%;
+text-align: center;
+}
+.beneficios h2 {
+margin-bottom: 30px;
+font-size: 30px;
+}
+.beneficios-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+gap: 20px;
+}
+.beneficio {
+background: #f9f9f9;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* PRODUCTOS */
+.productos{
+padding:70px 8%;
+}
+
+.productos h2{
+text-align:center;
+margin-bottom:40px;
+font-size:35px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+.card{
+background:white;
+border-radius:15px;
+overflow:hidden;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+transition:.4s;
+cursor: pointer; /* Indica que se puede hacer clic */
+}
+
+.card:hover{
+transform:translateY(-10px);
+}
+
+.card img{
+width:100%;
+height:250px;
+object-fit:cover;
+}
+
+.card h3{
+padding:15px;
+}
+
+.card p{
+padding:0 15px 15px;
+font-weight:bold;
+color:#e63946;
+}
+
+.btn-comprar{
+display:block;
+margin:15px;
+padding:12px;
+background:black;
+color:white;
+text-decoration:none;
+text-align:center;
+border-radius:8px;
+transition:.3s;
+}
+
+.btn-comprar:hover{
+background:#444;
+}
+
+/* OFERTAS */
+.ofertas {
+padding: 40px 8%;
+background: #fff5f5;
+text-align: center;
+margin: 20px 0;
+border-radius: 15px;
+}
+.oferta-box h3 {
+color: #e63946;
+font-size: 28px;
+margin-bottom: 10px;
+}
+
+/* APARTADO / PANEL DESPLAZABLE (NUEVO) */
+.panel-info {
+position: fixed;
+top: 0;
+right: -400px; /* Oculto por defecto a la derecha */
+width: 400px;
+height: 100vh;
+background: white;
+box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+z-index: 2000;
+transition: right 0.4s ease; /* Efecto de deslizamiento */
+padding: 40px 30px;
+display: flex;
+flex-direction: column;
+}
+
+.panel-info.active {
+right: 0; /* Se desplaza hacia adentro */
+}
+
+.panel-close {
+position: absolute;
+top: 20px;
+right: 20px;
+font-size: 28px;
+background: none;
+border: none;
+cursor: pointer;
+color: #333;
+}
+
+.panel-content img {
+width: 100%;
+height: 250px;
+object-fit: cover;
+border-radius: 10px;
+margin-bottom: 20px;
+}
+
+.panel-content h3 {
+font-size: 26px;
+margin-bottom: 10px;
+}
+
+.panel-content .precio {
+font-size: 22px;
+color: #e63946;
+font-weight: bold;
+margin-bottom: 15px;
+}
+
+.panel-content .descripcion {
+font-size: 16px;
+line-height: 1.6;
+color: #666;
+margin-bottom: 25px;
+}
+
+/* CAPA DE FONDO OSCURO PARA EL PANEL */
+.overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background: rgba(0,0,0,0.5);
+z-index: 1999;
+display: none;
+}
+.overlay.active {
+display: block;
+}
+
+/* TESTIMONIOS */
+.testimonios{
+background:#f7f7f7;
+padding:70px 8%;
+}
+.testimonios h2{
+text-align:center;
+margin-bottom:30px;
+}
+.opinion{
+background:white;
+padding:20px;
+border-radius:10px;
+margin:15px 0;
+box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+/* CONTACTO y UBICACION */
+.contacto{
+padding:70px 8%;
+text-align:center;
+}
+.contacto h2{
+margin-bottom:20px;
+}
+.ubicacion {
+margin-bottom: 30px;
+}
+
+/* FOOTER */
+footer{
+background:#000;
+color:white;
+text-align:center;
+padding:40px 20px;
+}
+
+/* WHATSAPP */
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+width:65px;
+height:65px;
+background:#25D366;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:35px;
+text-decoration:none;
+color:white;
+box-shadow:0 5px 15px rgba(0,0,0,.3);
+z-index: 1500;
+transition:.3s;
+}
+.whatsapp:hover{
+transform:scale(1.1);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">FA$HI0N $H0ES</div>
+    <nav class="menu">
+        <a href="#inicio">Inicio</a>
+        <a href="#productos">Productos</a>
+        <a href="#opiniones">Opiniones</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+</header>
+
+<section class="banner" id="inicio">
+    <div class="banner-content">
+        <h1>FA$HI0N $H0ES</h1>
+        <p>Los mejores calzados con estilo y comodidad.</p>
+    </div>
+</section>
+
+<section class="beneficios">
+    <h2>¿Por qué elegir Fashion Shoes?</h2>
+    <div class="beneficios-grid">
+        <div class="beneficio">
+            <h3>Envíos Rápidos</h3>
+            <p>Entregamos tus pedidos de forma rápida y segura.</p>
+        </div>
+        <div class="beneficio">
+            <h3>Calidad Garantizada</h3>
+            <p>Productos seleccionados con los mejores estándares.</p>
+        </div>
+        <div class="beneficio">
+            <h3>Pagos Seguros</h3>
+            <p>Compra con total confianza y seguridad.</p>
+        </div>
+        <div class="beneficio">
+            <h3>Atención Personalizada</h3>
+            <p>Te ayudamos a elegir el calzado ideal.</p>
+        </div>
+    </div>
+</section>
+
+<section class="productos" id="productos">
+    <h2>Calzados Destacados</h2>
+    <div class="grid">
+
+        <div class="card" 
+             data-titulo="Fashion Rose Premium" 
+             data-precio="U$ 95" 
+             data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2Fungn5O8qAc93tOq4RR2c1AM_QcsKsZi2g&s"
+             data-desc="Un calzado elegante con tonos rosados suaves, ideal para el día a día. Plantilla acolchada para máxima comodidad urbana y suela antideslizante de alta duración.">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2Fungn5O8qAc93tOq4RR2c1AM_QcsKsZi2g&s">
+            <h3>Fashion Rose Premium</h3>
+            <p>U$ 95</p>
+            <a href="https://wa.me/595982234254" class="btn-comprar">Comprar Ahora</a>
+        </div>
+
+        <div class="card" 
+             data-titulo="New Style Shoes" 
+             data-precio="U$ 120" 
+             data-img="https://nb.scene7.com/is/image/NB/u9060asp_nb_05_i?$pdpflexf2$&wid=440&hei=440"
+             data-desc="Estilo retro-futurista con materiales premium. Perfectos para quienes buscan destacar con un look chunky moderno sin sacrificar amortiguación y soporte.">
+            <img src="https://nb.scene7.com/is/image/NB/u9060asp_nb_05_i?$pdpflexf2$&wid=440&hei=440">
+            <h3>New Style Shoes</h3>
+            <p>U$ 120</p>
+            <a href="https://wa.me/595982234254" class="btn-comprar">Comprar Ahora</a>
+        </div>
+
+        <div class="card" 
+             data-titulo="K KIP WOK" 
+             data-precio="U$ 130" 
+             data-img="https://m.media-amazon.com/images/I/71H1AxZrY4L._AC_SL1500_.jpg"
+             data-desc="Diseño urbano todo terreno. Construido con costuras reforzadas y cuero sintético de primer nivel. Un calzado robusto que se adapta a cualquier outfit de noche o de día.">
+            <img src="https://m.media-amazon.com/images/I/71H1AxZrY4L._AC_SL1500_.jpg">
+            <h3>K KIP WOK</h3>
+            <p>U$ 130</p>
+            <a href="https://wa.me/595982234254" class="btn-comprar">Comprar Ahora</a>
+        </div>
+
+        <div class="card" 
+             data-titulo="Urban Style" 
+             data-precio="US$ 120" 
+             data-img="https://ortorex.es/wp-content/uploads/2024/04/Chunky-Running-Sneakers-Casual-Shoes-ORTOREX-1-jpg.webp"
+             data-desc="Diseñadas especialmente para la versatilidad de la ciudad. Suela con tecnología running adaptada al uso casual, brindando una pisada blanda durante todo el día.">
+            <img src="https://ortorex.es/wp-content/uploads/2024/04/Chunky-Running-Sneakers-Casual-Shoes-ORTOREX-1-jpg.webp">
+            <h3>Urban Style</h3>
+            <p>US$ 120</p>
+            <a href="https://wa.me/595982234254" class="btn-comprar">Comprar Ahora</a>
+        </div>
+
+    </div>
+
+    <section class="ofertas">
+        <h2>🔥 Ofertas de la Semana</h2>
+        <div class="oferta-box">
+            <h3>20% DE REINTEGRO!!!</h3>
+            <p>En modelos seleccionados hasta agotar stock.</p>
+            <a href="https://wa.me/595982234254" class="btn-comprar">Consultar Oferta</a>
+        </div>
+    </section>
+</section>
+
+<div class="overlay" id="overlay"></div>
+<div class="panel-info" id="info-panel">
+    <button class="panel-close" id="close-panel">&times;</button>
+    <div class="panel-content">
+        <img id="panel-img" src="" alt="Producto">
+        <h3 id="panel-titulo">Producto</h3>
+        <p class="precio" id="panel-precio">U$ 0</p>
+        <p class="descripcion" id="panel-desc">Descripción del producto aquí...</p>
+        <a href="https://wa.me/595982234254" class="btn-comprar" style="margin: 0;">Comprar por WhatsApp</a>
+    </div>
+</div>
+
+<section class="testimonios" id="opiniones">
+    <h2>Opiniones de Clientes</h2>
+    <div class="opinion">⭐⭐⭐⭐⭐<p>"Excelente calidad y entrega rápida."</p><strong>- María Gómez</strong></div>
+    <div class="opinion">⭐⭐⭐⭐⭐<p>"Muy cómodos y modernos."</p><strong>- Carlos Fernández</strong></div>
+    <div class="opinion">⭐⭐⭐⭐⭐<p>"Volvería a comprar sin duda."</p><strong>- Ana López</strong></div>
+</section>
+
+<section class="contacto" id="contacto">
+    <h2>Contacto</h2>
+    <div class="ubicacion">
+        <h2>📍 Nuestra Ubicación</h2>
+        <iframe src="https://maps.google.com/maps?q=Av.%20Adri%C3%A1n%20Jara%20Ciudad%20del%20Este&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+    <p>📞 Johana: +595 982 234254</p><br>
+    <p>📱 Ariel: +595 986 867549</p>
+    <p>📱 Lucas: +595 973 703999</p>
+    <p>📱 Rodney: +595 983 197351</p>
+    <p>📱 Nicole: +595 976 315476</p>
+  <p>📱 Nathalia: ‪+595 982 422491‬</p>
+</section>
+
+<footer>
+    <h3>Fashion Shoes</h3>
+    <p>Calidad, estilo y comodidad en cada paso.</p><br>
+    <p>📍 Av. Adrián Jara - Ciudad del Este</p>
+    <p>📞 +595 982 234254</
